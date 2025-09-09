@@ -572,24 +572,20 @@ document.getElementById('c_add').onclick=async ()=>{
   document.getElementById('c_text').value=""; renderLocalComments();
 };
 
-/* ===== Articles ===== */
-const articles=[
- {id:'moon-energy',title:'كيف يؤثر القمر على طاقتك الروحية وحياتك اليومية؟',img:'moon',body:[
-  "منذ آلاف السنين يرتبط القمر بالإلهام والحدس والتناغم الداخلي.",
-  "عند اكتمال القمر نشعر أن طاقتنا أعلى، بينما الهلال بداية لطاقة جديدة.",
-  "نصيحة اليوم: خصص خمس دقائق للتأمل تحت ضوء القمر (ولو من الشباك!)."
- ]},
- {id:'cards-ethics',title:'أخلاقيات قراءة التاروت: الحدود، النية، والاحترام',img:'star',body:[
-  "القراءة الواعية قائمة على النية الواضحة واحترام خصوصية السائل.",
-  "ضع حدودًا: لا تقرأ بدلًا عن شخص ثالث بدون إذنه.",
-  "اترك مساحة للاختيار الحر — البطاقات ترشد ولا تُملي."
- ]},
- {id:'cleanse-deck',title:'طرق بسيطة لتنظيف طاقتك وورق التاروت',img:'sun',body:[
-  "البخور والملح وحفظ الأوراق في قماش طبيعي من أفضل الطرق.",
-  "جرّب كتابة نية قصيرة قبل كل جلسة.",
-  "التنظيف النفسي يسبق تنظيف الأدوات دائمًا."
- ]}
-];
+/* ===== Articles (من ملف JSON) ===== */
+let articles = [];
+async function loadArticles(){
+  const list = document.getElementById('art_list');
+  list.innerHTML = '<div class="muted">⏳ جاري تحميل المقالات…</div>';
+  try{
+    const res = await fetch('articles.json', {cache:'no-store'});
+    if(!res.ok) throw new Error('تعذّر تحميل المقالات');
+    articles = await res.json();
+    renderArticles();
+  }catch(e){
+    list.innerHTML = '<div class="muted">⚠️ لم نتمكن من تحميل المقالات الآن.</div>';
+  }
+}
 function svgThumb(kind){
   const colors={moon:'#f7d372',star:'#ffd66e',sun:'#ffe59a'};
   const c=colors[kind]||'#ffd66e';
@@ -602,6 +598,7 @@ function svgThumb(kind){
 }
 function renderArticles(){
   const list=document.getElementById('art_list');
+  if(!articles.length){ list.innerHTML='<div class="muted">لا توجد مقالات بعد.</div>'; return; }
   list.innerHTML = articles.map(a=>(
     `<a href="#articles/${a.id}" data-id="${a.id}" class="artItem">
       <div class="kv">
@@ -614,7 +611,9 @@ function renderArticles(){
   });
   if(location.hash.includes('articles/')){
     const id=location.hash.split('/')[1]; openArticle(id);
-  }else{ document.getElementById('articleView').style.display='none'; }
+  }else{
+    document.getElementById('articleView').style.display='none';
+  }
 }
 function openArticle(id){
   const a=articles.find(x=>x.id===id); if(!a) return;
@@ -627,7 +626,7 @@ function openArticle(id){
 document.getElementById('art_back').onclick=()=>{ history.replaceState(null,"","#articles"); renderArticles(); };
 
 /* أول تحميل */
-renderArticles();
+loadArticles(); // ← بدلاً من renderArticles()
 </script>
 </body>
 </html>
