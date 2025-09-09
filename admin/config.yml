@@ -2,28 +2,29 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: "uploads"
-public_folder: "/uploads"
+media_folder: "uploads"      # مكان رفع الصور داخل الريبو
+public_folder: "/uploads"    # المسار العام للصور على الموقع
 
-locale: "ar"
+locale: ar
+editor:
+  preview: false
 
 collections:
-  - name: "articles"
-    label: "المقالات"
-    # هنحرر ملف JSON واحد اسمه articles.json
+  - name: "content"
+    label: "المحتوى"
     files:
-      - file: "articles.json"
-        label: "كل المقالات"
-        name: "articlesFile"
+      - name: "articles"
+        label: "المقالات"
+        file: "articles.json"   # هنحرّر نفس الملف
         format: "json"
+        extension: "json"
         fields:
           - label: "المقالات"
             name: "articles"
             widget: "list"
-            label_singular: "مقال"
+            summary: "{{fields.title}}"
             fields:
-              - { label: "المعرّف (انجليزي)", name: "id", widget: "string" }
+              - { label: "المعرّف (لاتيني)", name: "id", widget: "string" }
               - { label: "العنوان", name: "title", widget: "string" }
-              - { label: "التصنيف/التاج", name: "tag", widget: "string", hint: "مثلاً: sun أو aries..."}
-              - { label: "صورة (اختياري)", name: "image", widget: "image", required: false }
-              - { label: "المحتوى", name: "body", widget: "markdown" }
+              - { label: "الصورة",  name: "img", widget: "image", required: false }
+              - { label: "النص",    name: "body", widget: "text" }
