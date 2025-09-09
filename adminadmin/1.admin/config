@@ -1,0 +1,21 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/uploads"      # مكان حفظ الصور
+public_folder: "/images/uploads"
+
+locale: "ar"
+
+collections:
+  - name: "articles"
+    label: "المقالات"
+    folder: "content/articles"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    fields:
+      - {label: "العنوان", name: "title", widget: "string"}
+      - {label: "التاريخ", name: "date", widget: "datetime"}
+      - {label: "صورة الغلاف", name: "cover", widget: "image", required: false}
+      - {label: "المحتوى", name: "body", widget: "markdown"}
