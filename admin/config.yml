@@ -2,16 +2,28 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: "images/uploads"
-public_folder: "/images/uploads"
+media_folder: "uploads"
+public_folder: "/uploads"
+
+locale: "ar"
 
 collections:
   - name: "articles"
-    label: "Articles"
-    folder: "content/articles"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Publish Date", name: "date", widget: "datetime" }
-      - { label: "Body", name: "body", widget: "markdown" }
+    label: "المقالات"
+    # هنحرر ملف JSON واحد اسمه articles.json
+    files:
+      - file: "articles.json"
+        label: "كل المقالات"
+        name: "articlesFile"
+        format: "json"
+        fields:
+          - label: "المقالات"
+            name: "articles"
+            widget: "list"
+            label_singular: "مقال"
+            fields:
+              - { label: "المعرّف (انجليزي)", name: "id", widget: "string" }
+              - { label: "العنوان", name: "title", widget: "string" }
+              - { label: "التصنيف/التاج", name: "tag", widget: "string", hint: "مثلاً: sun أو aries..."}
+              - { label: "صورة (اختياري)", name: "image", widget: "image", required: false }
+              - { label: "المحتوى", name: "body", widget: "markdown" }
