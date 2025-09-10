@@ -628,5 +628,33 @@ document.getElementById('art_back').onclick=()=>{ history.replaceState(null,"","
 /* أول تحميل */
 loadArticles(); // ← بدلاً من renderArticles()
 </script>
+  <!-- Netlify Identity (لـ Decap CMS) -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  (function () {
+    // ابدأ الـ widget (لو محتاج)
+    try { window.netlifyIdentity && window.netlifyIdentity.init && window.netlifyIdentity.init(); } catch(_) {}
+
+    function goAdmin(){ location.href = "/admin/"; }
+
+    if (window.netlifyIdentity) {
+      // بعد تسجيل الدخول/التسجيل → ادخل لوحة التحكم
+      window.netlifyIdentity.on("login",  goAdmin);
+      window.netlifyIdentity.on("signup", goAdmin);
+
+      // لو فتحت لينك دعوة/تأكيد البريد (#confirmation_token أو invite)
+      window.netlifyIdentity.on("init", function (user) {
+        var h = location.hash || "";
+        var hasToken = /confirmation_token=|invite_token=/.test(h);
+        if (hasToken && !user) {
+          // خلّيه يكمل التفعيل، وبعدها ودّيه للوحة التحكم
+          // أحيانًا الـ widget بيكمّل في الخلفية، فنعمل تحويل فوري
+          goAdmin();
+        }
+      });
+    }
+  })();
+</script>
+
 </body>
 </html>
