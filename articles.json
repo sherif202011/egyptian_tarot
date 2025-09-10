@@ -1,11 +1,14 @@
 {
   "articles": [
     {
-      "id": "example-1",
-      "title": "مثال 1",
-      "img": "sun",
-      "image": "",
-      "body": ["هذه فقرة تجريبية. احذفها وأضاف مقالاتك من لوحة التحكم."]
+      "id": "tarot-energy",
+      "title": "أسرار التاروت والطاقة الكونية: كيف تكشف البطاقات ما يخفيه القدر؟",
+      "image": "/assets/uploads/tarot-energy.jpg",
+      "summary": "مقال تمهيدي عن علاقة التاروت بالطاقة الداخلية وكيفية الاستفادة منه كمرآة للذات.",
+      "content": "<iframe src='https://docs.google.com/document/d/e/2PACX-1vQTJefithD2zqA1ev0qJ-_sza3i7w6YqQ-0K-z54sQxGpYMSyb7tKi-ftgJ13lkwCB-BHz1egHZ5Lkd/pub?embedded=true' width='100%' height='1400' style='border:0'></iframe>",
+      "tag": "مقدمة",
+      "date": "2025-09-10",
+      "slug": "tarot-energy"
     }
   ]
 }
