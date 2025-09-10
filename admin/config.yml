@@ -2,33 +2,29 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: "content/uploads"
-public_folder: "/content/uploads"
+media_folder: "assets/uploads"     # مكان حفظ الصور داخل الريبو
+public_folder: "/assets/uploads"   # المسار العلني للصور على الموقع
 
-locale: "ar"
+locale: ar
 
 collections:
-  - label: "المقالات"
-    name: "articles"
+  - name: "articles"
+    label: "المقالات"
     files:
-      - label: "كل المقالات"
-        name: "articlesFile"
-        file: "articles.json"
+      - file: "articles.json"
+        label: "قائمة المقالات"
+        name: "articlesJson"
         format: "json"
         fields:
           - label: "المقالات"
             name: "articles"
             widget: "list"
-            collapsed: true
-            allow_add: true
+            summary: "{{fields.title}} ({{fields.id}})"
             fields:
-              - { label: "المعرّف (لاتيني بلا مسافات)", name: "id", widget: "string" }
+              - { label: "المعرف (id)", name: "id", widget: "string" }
               - { label: "العنوان", name: "title", widget: "string" }
-              - label: "الأيقونة"
-                name: "img"
-                widget: "select"
-                options: ["sun", "moon", "star"]
-                default: "sun"
+              - { label: "الرمز (للمصغّرات)", name: "img", widget: "select", options: ["moon","sun","star"] }
+              - { label: "صورة رئيسية (اختياري)", name: "image", widget: "image", required: false }
               - label: "المحتوى (فقرات)"
                 name: "body"
                 widget: "list"
