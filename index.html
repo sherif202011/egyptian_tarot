@@ -1,17 +1,5 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
-<!-- Netlify Identity widget (يفضل وجوده في الهوم) -->
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-
-<!-- لو وصل توكن على الروت، حوّله تلقائيًا إلى /admin/ -->
-<script>
-  if (
-    window.location.hash &&
-    /#(confirmation_token|invite_token|recovery_token|access_token|token)/.test(window.location.hash)
-  ) {
-    window.location.href = '/admin/' + window.location.hash;
-  }
-</script>
   <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
